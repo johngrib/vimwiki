@@ -29,6 +29,6 @@ hi def link vimwiki_link PreProc
 syntax match block_quote /^>/
 hi def link block_quote PreProc
 
-syntax match markdown_list /^ *-/
+syntax match markdown_list /^ *[-\*] /
 hi def link markdown_list Identifier
 
