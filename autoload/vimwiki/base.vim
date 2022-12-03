@@ -884,6 +884,11 @@ function! s:jump_to_segment(segment, segment_norm_re, segment_nb) abort
         \ vimwiki#vars#get_syntaxlocal('tag_match'),
         \ '__Tag__', a:segment, 'g')
 
+  " JohnGrib customized
+  let anchor_frag = substitute(a:segment, '-+', '[ (),-]+', 'g')
+  let anchor_frag = substitute(anchor_frag, '^', '\\v^#+ ', 'g')
+  let anchor_frag = substitute(anchor_frag, '$', '.{0,4}$', '')
+
   " Go: Move cursor: maybe more than onces (see markdown suffix)
   let success_nb = 0
   let is_last_segment = 0
@@ -893,6 +898,7 @@ function! s:jump_to_segment(segment, segment_norm_re, segment_nb) abort
     let pos = pos != 0 ? pos : search(anchor_tag, 'Wc')
     let pos = pos != 0 ? pos : search(anchor_header, 'Wc')
     let pos = pos != 0 ? pos : search(anchor_bold, 'Wc')
+    let pos = pos != 0 ? pos : search(anchor_frag, 'Wc')
 
     " Succeed: Get the result and reloop or leave
     if pos != 0
