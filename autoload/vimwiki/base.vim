@@ -1158,7 +1158,6 @@ function! vimwiki#base#search_word(wikiRX, flags) abort
   endif
 endfunction
 
-
 function! vimwiki#base#matchstr_at_cursor(wikiRX) abort
   " Return: part of the line that matches wikiRX at cursor
   let col = col('.') - 1
@@ -1630,16 +1629,30 @@ function! vimwiki#base#follow_link(split, ...) abort
   " Parse link at cursor and pass to VimwikiLinkHandler, or failing that, the
   " default open_link handler
 
+  " JohnGrib: 리소스 파일 경로
+  let uuid_file_pattern = "\\v/resource/[A-F0-9]{2}/[A-F0-9-]{34}/[^ ]*"
+  let uuid_file = vimwiki#base#matchstr_at_cursor(uuid_file_pattern)
+  if uuid_file != ''
+    call system('open .' . uuid_file)
+    return
+  endif
+
+  " JohnGrib: md 파일의 resource id 경로를 식별해서 Finder를 열어준다
+  let uuid_resource_pattern = "\\v[A-F0-9]{2}/[A-F0-9-]{34}"
+  let resource_id = vimwiki#base#matchstr_at_cursor(uuid_resource_pattern)
+  if resource_id != ''
+    call system('open ./resource/' . resource_id)
+    return
+  endif
+
   " Try WikiLink
+  " JohnGrib: [[name]] 형식의 링크
   let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_syntaxlocal('rxWikiLink')),
         \ vimwiki#vars#get_syntaxlocal('rxWikiLinkMatchUrl'))
-  " Try WikiIncl
-  if lnk ==? ''
-    let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_global('rxWikiIncl')),
-          \ vimwiki#vars#get_global('rxWikiInclMatchUrl'))
-  endif
+
   " Try Weblink
   if lnk ==? ''
+    " JohnGrib: URL 링크
     let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_syntaxlocal('rxWeblink')),
           \ vimwiki#vars#get_syntaxlocal('rxWeblinkMatchUrl'))
   endif
