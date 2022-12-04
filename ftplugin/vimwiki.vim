@@ -283,9 +283,6 @@ command! -buffer Vimwiki2HTMLBrowse
       \         expand(vimwiki#vars#get_wikilocal('path_html')),
       \         expand('%')))
 
-command! -buffer -bang VimwikiAll2HTML
-      \ call vimwiki#html#WikiAll2HTML(expand(vimwiki#vars#get_wikilocal('path_html')), <bang>0)
-
 command! -buffer VimwikiRss call vimwiki#html#diary_rss()
 
 command! -buffer VimwikiTOC call vimwiki#base#table_of_contents(1)
