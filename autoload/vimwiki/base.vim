@@ -1630,7 +1630,7 @@ function! vimwiki#base#follow_link(split, ...) abort
   " default open_link handler
 
   " JohnGrib: 리소스 파일 경로
-  let uuid_file_pattern = "\\v/resource/[A-F0-9]{2}/[A-F0-9-]{34}/[^ ]*"
+  let uuid_file_pattern = "\\v/resource/[A-F0-9]{2}/[A-F0-9-]{34}/[^ )]*"
   let uuid_file = vimwiki#base#matchstr_at_cursor(uuid_file_pattern)
   if uuid_file != ''
     call system('open .' . uuid_file)
