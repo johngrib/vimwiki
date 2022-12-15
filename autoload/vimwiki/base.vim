@@ -1647,9 +1647,16 @@ function! vimwiki#base#follow_link(split, ...) abort
 
   " JohnGrib: md 파일의 resource id 경로를 식별해서 Finder를 열어준다
   let uuid_resource_pattern = "\\v[A-F0-9]{2}/[A-F0-9-]{34}"
-  let resource_id = vimwiki#base#matchstr_at_cursor(uuid_resource_pattern)
-  if resource_id != ''
-    call system('open ./resource/' . resource_id)
+  let resource_dir = vimwiki#base#matchstr_at_cursor(uuid_resource_pattern)
+  if resource_dir != ''
+    if !isdirectory('./resource/' . resource_dir)
+      let answer = confirm('Create resource directory?', "&Yes\n&No")
+      if answer == 1
+        call mkdir('./resource/' . resource_dir, 'p')
+      endif
+    endif
+
+    call system('open ./resource/' . resource_dir)
     return
   endif
 
