@@ -700,10 +700,6 @@ if str2nr(vimwiki#vars#get_global('key_mappings').text_objs)
 endif
 
 " Map: <Plug> header definitions
-nnoremap <silent><buffer> <Plug>VimwikiAddHeaderLevel
-      \ :<C-U>call vimwiki#base#AddHeaderLevel(v:count)<CR>
-nnoremap <silent><buffer> <Plug>VimwikiRemoveHeaderLevel
-      \ :<C-U>call vimwiki#base#RemoveHeaderLevel(v:count)<CR>
 nnoremap <silent><buffer> <Plug>VimwikiGoToParentHeader
       \ :<C-u>call vimwiki#base#goto_parent_header()<CR>
 nnoremap <silent><buffer> <Plug>VimwikiGoToNextHeader
@@ -717,8 +713,6 @@ nnoremap <silent><buffer> <Plug>VimwikiGoToPrevSiblingHeader
 
 " Declare Map Header: default header key mappings
 if str2nr(vimwiki#vars#get_global('key_mappings').headers)
-  call vimwiki#u#map_key('n', '=', '<Plug>VimwikiAddHeaderLevel')
-  call vimwiki#u#map_key('n', '-', '<Plug>VimwikiRemoveHeaderLevel')
   call vimwiki#u#map_key('n', ']u', '<Plug>VimwikiGoToParentHeader')
   call vimwiki#u#map_key('n', '[u', '<Plug>VimwikiGoToParentHeader', 1)
   call vimwiki#u#map_key('n', ']]', '<Plug>VimwikiGoToNextHeader')
