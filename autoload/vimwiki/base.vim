@@ -1629,6 +1629,14 @@ function! vimwiki#base#follow_link(split, ...) abort
   " Parse link at cursor and pass to VimwikiLinkHandler, or failing that, the
   " default open_link handler
 
+  " JohnGrib: footnote 위치로 이동
+  let footnote_pattern = "\\v\\[\\^[^ ]+\\]"
+  let footnote_match = vimwiki#base#matchstr_at_cursor(footnote_pattern)
+  if footnote_match != ''
+    call search('\' . footnote_match)
+    return
+  endif
+
   " JohnGrib: 리소스 파일 경로
   let uuid_file_pattern = "\\v/resource/[A-F0-9]{2}/[A-F0-9-]{34}/[^ ]*"
   let uuid_file = vimwiki#base#matchstr_at_cursor(uuid_file_pattern)
