@@ -369,8 +369,6 @@ command! -buffer -nargs=* -complete=custom,vimwiki#tags#complete_tags
 command! -buffer VimwikiPasteUrl call vimwiki#html#PasteUrl(expand('%:p'))
 command! -buffer VimwikiPasteLink call vimwiki#path#PasteLink(expand('%:p'))
 command! -buffer VimwikiCatUrl call vimwiki#html#CatUrl(expand('%:p'))
-command! -buffer -nargs=* -range -complete=custom,vimwiki#base#complete_colorize
-      \ VimwikiColorize <line1>,<line2>call vimwiki#base#colorize(<f-args>)
 
 " ------------------------------------------------
 " Keybindings
@@ -431,10 +429,6 @@ nnoremap <silent><script><buffer> <Plug>VimwikiDiaryNextDay
     \ :VimwikiDiaryNextDay<CR>
 nnoremap <silent><script><buffer> <Plug>VimwikiDiaryPrevDay
     \ :VimwikiDiaryPrevDay<CR>
-noremap <script><buffer> <Plug>VimwikiColorizeNormal
-    \ :call vimwiki#base#colorize(vimwiki#base#get_user_color(), '')<CR>
-vnoremap <script><buffer> <Plug>VimwikiColorize
-    \ :call vimwiki#base#colorize(vimwiki#base#get_user_color(), visualmode())<CR>
 
 " Declare Map: default links key mappings
 if str2nr(vimwiki#vars#get_global('key_mappings').links)
@@ -453,8 +447,6 @@ if str2nr(vimwiki#vars#get_global('key_mappings').links)
   call vimwiki#u#map_key('n', vimwiki#vars#get_global('map_prefix').'n', '<Plug>VimwikiGoto')
   call vimwiki#u#map_key('n', vimwiki#vars#get_global('map_prefix').'d', '<Plug>VimwikiDeleteFile')
   call vimwiki#u#map_key('n', vimwiki#vars#get_global('map_prefix').'r', '<Plug>VimwikiRenameFile')
-  call vimwiki#u#map_key('n', vimwiki#vars#get_global('map_prefix').'c', '<Plug>VimwikiColorizeNormal')
-  call vimwiki#u#map_key('v', vimwiki#vars#get_global('map_prefix').'c', '<Plug>VimwikiColorize')
   call vimwiki#u#map_key('n', '<C-Down>', '<Plug>VimwikiDiaryNextDay')
   call vimwiki#u#map_key('n', '<C-Up>', '<Plug>VimwikiDiaryPrevDay')
 endif
