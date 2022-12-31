@@ -1668,7 +1668,7 @@ function! vimwiki#base#follow_link(split, ...) abort
   " Try Weblink
   if lnk ==? ''
     " JohnGrib: URL 링크
-    let lnk = matchstr(vimwiki#base#matchstr_at_cursor("\\v(https?://)[^ \"]+"), "\\v(https?://)[^ ]+")
+    let lnk = matchstr(vimwiki#base#matchstr_at_cursor("\\v(https?://)[^ \"\)]+"), "\\v(https?://)[^ ]+")
   endif
   " Try markdown image ![]()
   if vimwiki#vars#get_wikilocal('syntax') ==# 'markdown' && lnk ==# ''
