@@ -884,10 +884,8 @@ function! s:jump_to_segment(segment, segment_norm_re, segment_nb) abort
         \ vimwiki#vars#get_syntaxlocal('tag_match'),
         \ '__Tag__', a:segment, 'g')
 
-  " JohnGrib customized
-  let anchor_frag = substitute(a:segment, '-+', '[ (),-]+', 'g')
-  let anchor_frag = substitute(anchor_frag, '^', '\\v^#+ ', 'g')
-  let anchor_frag = substitute(anchor_frag, '$', '.{0,4}$', '')
+  " Search regex to find subheadings to jump to
+  let anchor_frag = '{#' . a:segment . '}'
 
   " Go: Move cursor: maybe more than onces (see markdown suffix)
   let success_nb = 0
