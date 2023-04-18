@@ -885,7 +885,7 @@ function! s:jump_to_segment(segment, segment_norm_re, segment_nb) abort
         \ '__Tag__', a:segment, 'g')
 
   " Search regex to find subheadings to jump to
-  let anchor_frag = '{#' . a:segment . '}'
+  let anchor_frag = '{#' . a:segment . '}\|{:id="' . a:segment . '"}'
 
   " Go: Move cursor: maybe more than onces (see markdown suffix)
   let success_nb = 0
